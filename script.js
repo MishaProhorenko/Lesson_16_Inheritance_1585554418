@@ -2,28 +2,43 @@
 
 class Honda {
 	constructor(modelName, color) {
-		this.modelName = modelName;
+		this._modelName = modelName;
 		this.color = color;
 		this.isDisabled = false;
 	}
 
-	// static checkColor(car) {
-	// 	if (car.color === 'blue') return true
-	// 	return false;
-	// }
 
-	// static checkEngineVolume(car) {
-	// 	if (car.engineVolume > 2.4) return true
-	// 	return false;
-	// }
+	get modelName() {
+		return this._modelName;
+	}
 
-	// checkActiveCar() {
-	// 	if (this.isDisabled) {
-	// 		console.log('wrrr');
-	// 	} else {
-	// 		console.log('----');
-	// 	}
-	// }
+	set modelName(value) {
+		this._modelName = value;
+	}
+
+	static checkColor(car) {
+		if (car.color === 'blue') return true
+		return false;
+	}
+
+	static checkEngineVolume(car) {
+		if (car.engineVolume >= 2.2) return true
+		return false;
+	}
+
+	start(){
+		this.isDisabled = true;
+	}
+	finish(){
+		this.isDisabled = false;
+	}
+	checkActive(){
+		if(this.isDisabled) {
+			console.log(`wrr`)
+		} else {
+			console.log(`car disabled`)
+		}
+	}
 
 };
 
@@ -32,6 +47,18 @@ class Acura extends Honda {
 		super(modelName, color)
 		this.engineVolume = engineVolume;
 	}
+	showModelCar(model){
+		console.log(`Model name: ${model}`)
+	}
+	checkActive() {
+		if (this.isDisabled) {
+			super.checkActive()
+			console.log(`engine volume car: ${this.engineVolume}`)
+		} else {
+			super.checkActive()
+			console.log(`:(`)
+		}
+	}
 };
 
 class Audi extends Acura {
@@ -39,12 +66,16 @@ class Audi extends Acura {
 		super(modelName, color, engineVolume)
 		this.bodyType = bodyType;
 	}
+	changeColorByCar(color){
+		this.color = color;
+	}
 };
 
 class Opel extends Audi {
 	constructor(modelName, color, engineVolume, bodyType) {
-		super(modelName, color, engineVolume, bodyType)		
+		super(modelName, color, engineVolume, bodyType)
 	}
+
 };
 
 let hondaCar = new Honda('Accord', 'blue');
